@@ -2,20 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- This is an SEO Change 1: specified content language as US English -->
+    <!-- This is an SEO Change: specified content language as US English -->
     <meta http-equiv="content-language" content="en-us">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- This is an SEO Change 2: provided description for the website-->
+    <!-- This is an SEO Change: provided description for the website-->
     <meta name="description" content="Free Money Budget Tracker Application">
-    <!-- This is an SEO Change 3: added a list of keywords-->
+    <!-- This is an SEO Change: added a list of keywords-->
     <meta name="keywords" content="personal budget tracker free money management app track expenses">
     <title>Personal Budget</title>
     <link rel="stylesheet" href="/pb/reset.css">
     <link rel="stylesheet" href="/pb/main.css">
 </head>
-<body>
-<!-- This is a Semantic HTML Change 1 : changed div to nav -->
-<!-- This is an A11y Change 1 : added role as navigation-->
+<body> 
+    <!-- This is an A11y Change: added out of view skip to content --> 
+    <!-- Note: use tab to focus on link -->
+    <a class="skip-to-content-link" href="#main">
+        Skip to content
+    </a>
+
+    <!-- This is a Semantic HTML Change: changed div to nav -->
+    <!-- This is an A11y Change: added role as navigation -->
     <nav role="navigation" class="menu">
         <ul>
             <li><a href="/pb/">Homepage</a></li>
@@ -24,19 +30,22 @@
             <li><a href="https://google.com">Google</a></li>
         </ul>
     </nav>
-<!-- This is a Semantic HTML Change 2 : changed div to header-->
-<!-- This is an A11y Change 2 : added role as banner-->
+
+    <!-- This is a Semantic HTML Change: changed div to header -->
+    <!-- This is an A11y Change: added role as banner -->
     <header class="hero" role="banner">
         <h1>Personal Budget</h1>
         <h2>A personal-budget management app</h2>
     </header>
     
-<!-- This is a Semantic HTML Change 3 : changed div to main-->
-<!-- This is an A11y Change 3 : added role as main-->
-    <main role="main" class="container center">
-<!-- This is a Semantic HTML Change 4 : changed div to section-->
+    <!-- This is a Semantic HTML Change: changed div to main -->
+    <!-- This is an A11y Change: added role as main -->
+    <main id="main" role="main" class="container center">
+
+        <!-- This is a Semantic HTML Change: changed div to section -->
         <section class="page-area" >
-<!-- This is a Semantic HTML Change 5 : changed div to article-->
+
+            <!-- This is a Semantic HTML Change: changed div to article -->
             <article class="text-box">
                 <h1>Stay on track</h1>
                 <p>
@@ -102,13 +111,13 @@
             </article>
         </section>
     </main>
-<!-- This is a Semantic HTML Change 6 : changed div to footer-->
-<!-- This is an A11y Change 4 : added role as contentinfo-->
+
+    <!-- This is a Semantic HTML Change: changed div to footer -->
+    <!-- This is an A11y Change: added role as contentinfo -->
     <footer class="bottom" role="contentinfo">
         <p class="center">
             All rights reserved &copy; Anushka Padyal
         </p>
     </footer>
-
 </body>
 </html>
