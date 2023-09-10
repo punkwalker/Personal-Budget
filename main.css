@@ -89,6 +89,7 @@ main article {
     max-width: 340px;
     text-align: justify;
     margin: 20px;
+    vertical-align: text-top;
 }
 
 @media screen and (min-width: 768px) {
