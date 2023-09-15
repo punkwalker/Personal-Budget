@@ -10,8 +10,8 @@
     <!-- This is an SEO Change: added a list of keywords-->
     <meta name="keywords" content="personal budget tracker free money management app track expenses">
     <title>Personal Budget</title>
-    <link rel="stylesheet" href="/pb/reset.css">
-    <link rel="stylesheet" href="/pb/main.css">
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body> 
     <!-- This is an A11y Change: added out of view skip to content --> 
@@ -24,9 +24,9 @@
     <!-- This is an A11y Change: added role as navigation -->
     <nav role="navigation" class="menu">
         <ul>
-            <li><a href="/pb/">Homepage</a></li>
-            <li><a href="/pb/about.html">About</a></li>
-            <li><a href="/pb/login.html">Login</a></li>
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/login.html">Login</a></li>
             <li><a href="https://google.com">Google</a></li>
         </ul>
     </nav>
@@ -104,9 +104,9 @@
             </article>
     
             <article class="text-box">
-                <h1>Free</h1>
+                <h1>Chart</h1>
                 <p>
-                    This app is free!!! And you are the only one holding your data!
+                    <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </article>
         </section>
@@ -119,5 +119,48 @@
             All rights reserved &copy; Anushka Padyal
         </p>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var dataSource = {
+            datasets: [
+                {
+                    data:[30, 350, 90],
+                    backgroundColor: [
+                        '#ffcd56',
+                        '#ff6384',
+                        '#36a2eb',
+                        '#fd6b19',
+                    ],
+                }
+            ],
+            labels: [
+                'Eat out',
+                'Rent',
+                'Groceries'
+            ]
+        };
+
+        function createChart() {
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: dataSource
+            });
+        }
+
+        function getBudget() {
+            axios.get('/budget')
+            .then(function (res) {
+                for (var i = 0; i < res.data.myBudget.length; i++) {
+                    dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
+                    dataSource.labels[i] = res.data.myBudget[i].title;    
+                }
+                createChart();
+            });
+        }
+        getBudget();
+    </script>
 </body>
 </html>
