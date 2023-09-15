@@ -126,20 +126,21 @@
         var dataSource = {
             datasets: [
                 {
-                    data:[30, 350, 90],
+                    data:[],
                     backgroundColor: [
                         '#ffcd56',
                         '#ff6384',
                         '#36a2eb',
                         '#fd6b19',
+                        'red',
+                        'blue',
+                        'black',
+                        'green',
+                        'purple'
                     ],
                 }
             ],
-            labels: [
-                'Eat out',
-                'Rent',
-                'Groceries'
-            ]
+            labels: []
         };
 
         function createChart() {
@@ -152,7 +153,7 @@
 
         function getBudget() {
             axios.get('/budget')
-            .then(function (res) {
+            .then(function (res) {                
                 for (var i = 0; i < res.data.myBudget.length; i++) {
                     dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
                     dataSource.labels[i] = res.data.myBudget[i].title;    
