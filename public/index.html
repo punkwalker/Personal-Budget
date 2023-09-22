@@ -11,8 +11,8 @@
     <!-- This is an SEO Change: added a list of keywords-->
     <meta name="keywords" content="personal budget tracker free money management app track expenses">
     <title>Personal Budget</title>
-    <link rel="stylesheet" href="/reset.css">
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/public/reset.css">
+    <link rel="stylesheet" href="/public/main.css">
 </head>
 
 <body>
@@ -161,7 +161,7 @@
         }
 
         function getBudget() {
-            axios.get('/budget')
+            axios.get('http://localhost:3000/budget')
                 .then(function (res) {
                     for (var i = 0; i < res.data.myBudget.length; i++) {
                         dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
@@ -184,7 +184,7 @@
         getDataForD3();
 
         function getDataForD3() {
-            axios.get('/budget')
+            axios.get('http://localhost:3000/budget')
                 .then(function (res) {
                     for (var i = 0; i < res.data.myBudget.length; i++) {
                         d3pieData.titles[i] = res.data.myBudget[i].title;
