@@ -14,11 +14,11 @@
     },
     {
         "title": "Utility",
-        "budget": 150
+        "budget": 250
     },
     {
         "title": "Loan Payments",
-        "budget": 165
+        "budget": 300
     },
     {
         "title": "Shopping",
@@ -30,11 +30,11 @@
     },
     {
         "title": "Misc",
-        "budget": 100
+        "budget": 200
     },
     {
         "title": "Insurance",
-        "budget": 150
+        "budget": 350
     }
 ]
 }

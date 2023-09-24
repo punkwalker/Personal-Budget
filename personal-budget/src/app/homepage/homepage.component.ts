@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {Chart} from 'chart.js/auto';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'pb-homepage',
@@ -28,21 +28,32 @@ export class HomepageComponent implements AfterViewInit{
     labels: []
 };
 
-  constructor(private http: HttpClient) { }
+  constructor(private data:DataService) { }
 
   ngAfterViewInit(): void {
-    this.http.get('http://localhost:3000/budget')
-    .subscribe((res: any) => {
-      for (var i = 0; i < res.myBudget.length; i++) {
-        this.dataSource.datasets[0].data[i] = res.myBudget[i].budget as never;
-        this.dataSource.labels[i] = res.myBudget[i].title as never;
+
+    if (this.data.chartData == null)
+    {
+      this.data.loadData().subscribe((res:any) => {
+        this.populateData();
+      })
+    }
+    else
+    {
+      this.populateData();
+    }
+  }
+
+  private populateData()
+  {
+      for (var i = 0; i < this.data.chartData.myBudget.length; i++) {
+        this.dataSource.datasets[0].data[i] = this.data.chartData.myBudget[i].budget as never;
+        this.dataSource.labels[i] = this.data.chartData.myBudget[i].title as never;
       }
       this.createChart();
-    });
   }
 
   createChart() {
-    // var ctx = document.getElementById('myChart').getContext('2d');
     var ctx = document.getElementById('myChart') as HTMLCanvasElement;
     var myPieChart = new Chart(ctx, {
         type: 'pie',
