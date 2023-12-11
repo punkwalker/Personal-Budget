@@ -30,25 +30,26 @@ export class D3jschartComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    if (this.data.chartData == null)
-    {
-      var obs = this.data.loadData().subscribe((res:any) => {
-        this.renderChart();
-      });
-    }
-    else
-    {
-      this.renderChart();
-    }
+    // if (this.data.chartData == null)
+    // {
+    //   var obs = this.data.loadData().subscribe((res:any) => {
+    //     this.renderChart(res);
+    //   });
+    // }
+    // else
+    // {
+    //   this.renderChart(this.data.chartData);
+    // }
 
   }
 
-  private renderChart()
+  public renderChart(budget:any)
   {
-    var chartData = this.data.chartData;
-      for (var i = 0; i < chartData.myBudget.length; i++) {
-            this.d3pieData.titles[i] = chartData.myBudget[i].title;
-            this.d3pieData.values[i] = chartData.myBudget[i].budget;
+    //var chartData = this.data.chartData;
+    //for (var i = 0; i < chartData.myBudget.length; i++)
+      for (var i = 0; i < budget.length; i++) {
+            this.d3pieData.titles[i] = budget[i].title;
+            this.d3pieData.values[i] = budget[i].budget;
           }
     const data = this.getModeledData();
     this.createSvg();
@@ -60,7 +61,7 @@ export class D3jschartComponent implements AfterViewInit {
     var mappings = [];
     for (var i = 0; i < this.d3pieData.titles.length; i++) {
       mappings[i] = {
-        label: this.d3pieData.titles[i],
+        label: `${this.d3pieData.titles[i]} ($${this.d3pieData.values[i]})`,
         value: this.d3pieData.values[i],
       };
     }

@@ -1,0 +1,123 @@
+<main id="dashboard" role="main" class="container center">
+  <section id="header">
+    <article>
+      <h1>Hi, {{ name }}!</h1>
+      <h2>Here is your budget snapshot</h2>
+    </article>
+  </section>
+  <section id="visuals" style="display: inline-flex;">
+    <mat-card class="visual-mat-card">
+      <mat-card-header>
+        <mat-card-title><h2 style="display: flex;">Budget Goals</h2></mat-card-title>
+        <mat-card-subtitle><h3>Budget Goals card let's you set the goal to limit the expenses in a specific categories.</h3></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <pb-d3jschart id="d3jsChart"></pb-d3jschart>
+        <form [formGroup]="customBudgetForm" (ngSubmit)="saveCustomBudgetCategory()">
+          <mat-card class="visual-mat-card">
+            <mat-card-header>
+              <mat-card-subtitle><h3>Add Budget Goal</h3></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div style="align-content: center;">
+
+                <mat-form-field>
+                  <mat-label>Category</mat-label>
+                  <input matInput formControlName="category">
+                </mat-form-field>
+                <mat-form-field style="margin-left: 16px;position: relative;top: -0.30em;">
+                  <mat-label>Budget</mat-label>
+                  <input matInput formControlName="budget">
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+            <mat-card-actions align="end">
+              <button mat-stroked-button color="primary" type="submit">ADD</button>
+            </mat-card-actions>
+          </mat-card>
+        </form>
+
+          <form [formGroup]="budgetForm" (ngSubmit)="saveBudgetCategory()">
+            <mat-card class="visual-mat-card">
+              <mat-card-header>
+                <mat-card-subtitle><h3>Edit Budget Goal</h3></mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                  <div style="align-content: center;">
+                      <mat-form-field>
+                        <mat-label>Category</mat-label>
+                        <mat-select value="{{ selectedBudgetCategory }}" (selectionChange)="onSelectionChange($event)" formControlName="category">
+                          <mat-option *ngFor="let budgetItem of budget" value="{{ budgetItem.title }}">{{ budgetItem.title }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field style="margin-left: 16px;position: relative;top: -0.30em;">
+                        <mat-label>Budget</mat-label>
+                        <input matInput value="{{ selectedBudget }}" formControlName="budget"/>
+                      </mat-form-field>
+                  </div>
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <!-- <button mat-button>CANCEL</button> -->
+                <button mat-stroked-button color="primary" type="submit">SAVE</button>
+              </mat-card-actions>
+            </mat-card>
+          </form>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="visual-mat-card">
+      <mat-card-header>
+        <mat-card-title><h2 style="display: flex;">Expense Report</h2></mat-card-title>
+        <mat-card-subtitle><h3>Record your expenses and visualize how your spending stacked up!</h3></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          <mat-form-field>
+            <mat-label>Select Month</mat-label>
+            <mat-select value="{{ selectedMonth }}" (selectionChange)="onMonthSelectionChange($event)">
+              <mat-option *ngFor="let month of months" value="{{ month }}">{{ month }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <p>
+          <pb-budget-and-expense-chart></pb-budget-and-expense-chart>
+        </p>
+
+        <form [formGroup]="expenseForm" (ngSubmit)="saveExpense()">
+          <mat-card class="visual-mat-card">
+            <mat-card-header>
+              <mat-card-subtitle><h3>Add Expense</h3></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content style="margin-top: 4px;">
+              <mat-form-field>
+                <mat-label>Category</mat-label>
+                <mat-select value="{{ selectedExpenseCategory }}" (selectionChange)="onExpenseCategorySelectionChange($event)" formControlName="category">
+                  <mat-option *ngFor="let category of categories" value="{{ category.title }}" [style.border]="category.color">{{category.title}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field style="margin-left: 16px;position: relative;top: -0.25em;">
+                <mat-label>Expense</mat-label>
+                <input matInput value="{{ selectedExpense }}" formControlName="expense"/>
+              </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions align="end">
+              <!-- <button mat-button>CANCEL</button> -->
+              <button mat-stroked-button color="primary">SAVE</button>
+            </mat-card-actions>
+          </mat-card>
+        </form>
+        <p>
+          <mat-card class="visual-mat-card">
+            <mat-card-header>
+              <mat-card-title><h2 style="display: flex;">Expense at a glance</h2></mat-card-title>
+              <mat-card-subtitle><h3>Total expense for Month {{ selectedMonth }}: ${{ totalExpenseForMonth }}</h3></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <pb-expense-chart></pb-expense-chart>
+            </mat-card-content>
+          </mat-card>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</main>

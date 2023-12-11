@@ -1,6 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
 import {Chart} from 'chart.js/auto';
 import { DataService } from '../data.service';
+import { AuthService } from '@auth0/auth0-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pb-homepage',
@@ -28,27 +30,51 @@ export class HomepageComponent implements AfterViewInit{
     labels: []
 };
 
-  constructor(private data:DataService) { }
+  constructor(private dataService:DataService, public auth:AuthService, private router:Router) { }
 
   ngAfterViewInit(): void {
 
-    if (this.data.chartData == null)
+    if (this.dataService.chartData == null)
     {
-      this.data.loadData().subscribe((res:any) => {
+      this.dataService.loadData().subscribe((res:any) => {
         this.populateData();
-      })
+      });
     }
     else
     {
       this.populateData();
     }
+
+    this.auth.isAuthenticated$.subscribe((res:any) => {
+      console.log("Inside isAuthenticated subs");
+      console.log(res);
+      if (res == true)
+      {
+        this.auth.user$.subscribe((user:any) => {
+
+          this.auth.getAccessTokenSilently().subscribe((res:any) => {
+            console.log(res);
+          })
+
+        //this.router.navigate(['/dashboard']);
+        this.dataService.getUserData(user.email).subscribe((res:any) => {
+            if (res.length > 0) {
+              this.router.navigate(['/dashboard']);
+            }
+            else {
+              this.router.navigate(['/profile']);
+            }
+          });
+        });
+      }
+    });
   }
 
   private populateData()
   {
-      for (var i = 0; i < this.data.chartData.myBudget.length; i++) {
-        this.dataSource.datasets[0].data[i] = this.data.chartData.myBudget[i].budget as never;
-        this.dataSource.labels[i] = this.data.chartData.myBudget[i].title as never;
+      for (var i = 0; i < this.dataService.chartData.myBudget.length; i++) {
+        this.dataSource.datasets[0].data[i] = this.dataService.chartData.myBudget[i].budget as never;
+        this.dataSource.labels[i] = this.dataService.chartData.myBudget[i].title as never;
       }
       this.createChart();
   }

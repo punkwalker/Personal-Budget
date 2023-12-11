@@ -1,0 +1,86 @@
+<main id="profile" role="main" class="container center">
+  <section class="page-area">
+    <!-- <pb-article class="text-box"> -->
+      <!-- <p><img src="{{ picture }}" /></p> -->
+      <!-- <h1>Hi, {{ name }}!</h1>
+      <p>Email - {{ email }}</p>
+      <p>Last Login - {{ lastLogin }}</p>
+      <p>DB ID - {{ dbID }}</p>
+    </pb-article> -->
+
+    <div *ngIf="!newLogin else verify">
+      <form [formGroup]="userForm" (ngSubmit)="saveUserDetails()">
+      <mat-card class="visual-mat-card">
+        <mat-card-header>
+          <p>
+            <mat-card-title>
+              <h2 style="display: flex;">Hi {{ name }}!</h2>
+            </mat-card-title>
+            <mat-card-subtitle>
+            <h3>Below are your details..</h3>
+          </mat-card-subtitle>
+        </p>
+        </mat-card-header>
+        <!-- <mat-card class="visual-mat-card">
+          <mat-card-content>
+
+          </mat-card-content>
+        </mat-card> -->
+        <mat-card-content>
+          <p>
+            <img src="{{ picture }}" alt="Photo of a {{ name }}" style="max-width: 128px;" />
+          </p>
+          <p style="margin-top: 16px;">
+            <mat-form-field style="margin-left: 16px;position: relative;top: -0.30em;">
+              <mat-label>Name</mat-label>
+              <input matInput value="{{ name }}" formControlName="name">
+            </mat-form-field>
+            <mat-form-field style="margin-left: 16px;position: relative;top: -0.30em;">
+              <mat-label>Email</mat-label>
+              <input matInput value="{{ email }}" formControlName="email">
+            </mat-form-field>
+          </p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-button (click)="cancel()">CANCEL</button>
+          <button mat-stroked-button color="primary">SAVE</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+    </div>
+
+    <ng-template #verify>
+      <form [formGroup]="userForm" (ngSubmit)="saveUserDetails()">
+        <mat-card class="visual-mat-card">
+          <mat-card-header>
+            <mat-card-title>
+              <h2 style="display: flex;">First things first!</h2>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <h3>Please verify your details and hit SAVE if when ready! Hit Cancel to log out and goto Home page.</h3>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              <img src="{{ picture }}" alt="Photo of a {{ name }}" style="max-width: 128px;" />
+            </p>
+            <p style="margin-top: 16px;">
+              <mat-form-field style="margin-left: 16px;position: relative;top: -0.30em;">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" value="{{ name }}">
+              </mat-form-field>
+              <mat-form-field style="margin-left: 16px;position: relative;top: -0.30em;">
+                <mat-label>Email</mat-label>
+                <input matInput value="{{ email }}" formControlName="email">
+              </mat-form-field>
+            </p>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-button (click)="logout()">CANCEL</button>
+            <button mat-stroked-button type="submit" color="primary">SAVE</button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+    </ng-template>
+  </section>
+</main>

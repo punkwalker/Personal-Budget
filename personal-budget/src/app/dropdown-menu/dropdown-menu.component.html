@@ -1,0 +1,17 @@
+
+<button [cdkMenuTriggerFor]="menu" class="dropdown-standalone-trigger">Sign In</button>
+
+<ng-template #menu>
+  <div class="dropdown-menu" cdkMenu>
+
+    <div *ngIf="auth.isAuthenticated$ | async else signin">
+      <button class="dropdown-menu-item" cdkMenuItem (click)="GotoProfile()">View Profile</button>
+      <button class="dropdown-menu-item" cdkMenuItem (click)="login()">Log Out</button>
+    </div>
+
+    <ng-template #signin>
+      <button class="dropdown-menu-item" cdkMenuItem (click)="login()">Sign in / Sign up using Auth0</button>
+    </ng-template>
+    <!-- <button class="dropdown-menu-item" cdkMenuItem (click)="logout()">Log out</button> -->
+  </div>
+</ng-template>
