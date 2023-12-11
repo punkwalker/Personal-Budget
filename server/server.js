@@ -9,21 +9,22 @@ app.use(cors());
 app.use(express.json());
 const port = 3000;
 
-const uri = "mongodb://127.0.0.1:27017/BudgetTracker";
+//const uri = "mongodb://127.0.0.1:27017/BudgetTracker";
+const uri = "mongodb+srv://apadyal:password%401234@nbad.q1uxsmy.mongodb.net/?retryWrites=true&w=majority";
 const userModel = require("./Models/user_schema");
 const budgetModel = require("./Models/budget_schema");
 const categoryModel = require("./Models/category_schema");
 const expenseModel = require("./Models/expense_schema");
 
-mongoose.connect(uri)
-        .then((success) => 
-        {
-            console.log("Database Connected successfully");
-        })
-        .catch((err) =>
-        {
-            console.log(err.message)
-        });
+// mongoose.connect(uri)
+//         .then((success) => 
+//         {
+//             console.log("Database Connected successfully");
+//         })
+//         .catch((err) =>
+//         {
+//             console.log(err.message)
+//         });
 
 
 
@@ -44,7 +45,7 @@ app.get('/user', (req, res) => {
 });
 
 async function getUserData(userName, response) {
-    await mongoose.connect(uri)
+    await mongoose.connect(uri,{dbName: 'BudgetTracker'})
     .then(() => {
         console.log('After mongoose connetion')
         userModel.find({userName:userName})
@@ -68,7 +69,7 @@ async function saveUserData(req, response)
 
     console.log(userName, name, lastLogin);
     
-    await mongoose.connect(uri)
+    await mongoose.connect(uri,{dbName: 'BudgetTracker'})
     .then(async () => {
         var model = new userModel(
             {
@@ -140,7 +141,7 @@ app.post('/budget',(req, res) => {
 async function getBudgetDataForUser(req,response){
 
     var userObjectID = req.query.userObjectID;
-    await mongoose.connect(uri)
+    await mongoose.connect(uri, {dbName: 'BudgetTracker'})
     .then(() => {
         budgetModel.find({userObjectID:userObjectID})
         .then((data) => {
@@ -161,7 +162,7 @@ async function saveBudgetDataForUser(req, response){
     var newBudget = req.body.budget;
     console.log(userObjectID, newBudget);
     
-    await mongoose.connect(uri)
+    await mongoose.connect(uri,{dbName: 'BudgetTracker'})
     .then(async () => {
         var model = new budgetModel(
             {
@@ -223,11 +224,12 @@ app.get('/categories', (req, res) => {
 
 async function getAllCategories(response){
 
-    await mongoose.connect(uri)
+    await mongoose.connect(uri,{dbName: 'BudgetTracker'})
     .then(() => {
+        console.log("in getAllCategories");
         categoryModel.find({})
         .then((data) => {
-            //console.log('got data!: ',data);
+            console.log('got data!: ',data);
             response.json(data);
         })
     }).catch((error) => {
@@ -257,7 +259,7 @@ app.post('/expense',(req, res) => {
 async function getExpenseDataForUser(req, res){
     var userObjectId = req.query.userObjectID;
     var month = req.query.month;
-    await mongoose.connect(uri)
+    await mongoose.connect(uri, {dbName: 'BudgetTracker'})
     .then(() => {
         expenseModel.find({userObjectId:userObjectId, month:month})
         .then((data) => {
@@ -281,7 +283,7 @@ async function saveExpenseDataForUser(req, response){
 
     console.log(userObjectID, category, newExpense, month);
     
-    await mongoose.connect(uri)
+    await mongoose.connect(uri, {dbName: 'BudgetTracker'})
     .then(async () => {
         var model = new expenseModel(
             {
