@@ -4,6 +4,7 @@ import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component'
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {VERSION as CDK_VERSION} from '@angular/cdk';
 import {VERSION as MAT_VERSION, MatNativeDateModule} from '@angular/material/core';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'pb-menu',
@@ -13,6 +14,8 @@ import {VERSION as MAT_VERSION, MatNativeDateModule} from '@angular/material/cor
 })
 
 export class MenuComponent {
+
+  constructor(public auth:AuthService){}
 }
 
 

@@ -95,6 +95,7 @@ export class DashboardComponent implements AfterViewInit {
               this.expenseChart.renderData(this.dbID, 'Jan');
 
               this.dataService.getAllExpensesByMonthForUser(this.dbID, this.selectedMonth).subscribe((data:any) => {
+                this.totalExpenseForMonth = 0;
                 this.expenses = data;
                 this.selectedExpenseCategory = this.expenses[0].category;
                 this.selectedExpense = this.expenses[0].expense;
@@ -165,24 +166,13 @@ export class DashboardComponent implements AfterViewInit {
 
   onMonthSelectionChange($event:any):void{
     console.log('Changed month to - '+$event.value);
-
     this.selectedMonth = $event.value;
-    // this.dataService.getAllExpensesByMonthForUser(this.dbID, this.selectedMonth).subscribe((data:any) => {
-    //   this.expenses = data;
-    //   this.expenses.forEach((expense:any) => {
-    //     this.totalExpenseForMonth += expense.expense;
-    //   });
-    // });
-
-    // this.selectedMonth = $event.value;
-    // this.budgetAndExpenseChart.updateData(this.dbID, this.selectedMonth);
-    // this.expenseChart.updateData(this.dbID, this.selectedMonth);
-
     this.refreshExpensesForMonth();
   }
 
   private refreshExpensesForMonth():void{
     this.dataService.getAllExpensesByMonthForUser(this.dbID, this.selectedMonth).subscribe((data:any) => {
+      this.totalExpenseForMonth = 0;
       this.expenses = data;
       this.expenses.forEach((expense:any) => {
         this.totalExpenseForMonth += expense.expense;
