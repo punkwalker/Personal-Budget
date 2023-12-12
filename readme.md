@@ -1,5 +1,5 @@
 # Pesonal Budget Tracker
-A user-friendly budget tracker application built with MEAN stack and serverless architecture.
+A user-friendly budget tracker application built with MEAN stack leveraging serverless architecture.
 
 1. Front-end hosting using Netlify - https://app.netlify.com/ <br />
 2. API hosting using Digital Ocean - https://www.digitalocean.com <br />
