@@ -9,23 +9,29 @@ app.use(cors());
 app.use(express.json());
 const port = 3000;
 
+//#region Compression
+
+var compression = require('compression');
+app.use(compression({ filter: shouldCompress }));
+
+function shouldCompress (req, res) {
+  if (req.headers['x-no-compression']) {
+    // don't compress responses with this request header
+    return false
+  }
+
+  // fallback to standard filter function
+  return compression.filter(req, res);
+}
+
+//#endregion
+
 //const uri = "mongodb://127.0.0.1:27017/BudgetTracker";
 const uri = "mongodb+srv://apadyal:password%401234@nbad.q1uxsmy.mongodb.net/?retryWrites=true&w=majority";
 const userModel = require("./Models/user_schema");
 const budgetModel = require("./Models/budget_schema");
 const categoryModel = require("./Models/category_schema");
 const expenseModel = require("./Models/expense_schema");
-
-// mongoose.connect(uri)
-//         .then((success) => 
-//         {
-//             console.log("Database Connected successfully");
-//         })
-//         .catch((err) =>
-//         {
-//             console.log(err.message)
-//         });
-
 
 
 //#region  User
@@ -341,3 +347,5 @@ async function saveExpenseDataForUser(req, response){
 app.listen(port, () => {
     console.log(`API served at http://localhost:${port}`);
 });
+
+module.exports = app
