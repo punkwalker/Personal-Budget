@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataService {
   //apiUrl:string = `http://localhost:3000`;
-  apiUrl:string = `http://149.28.231.88:3000`;
+  //apiUrl:string = `http://149.28.231.88:3000`;
+  apiUrl:string = `https://coral-app-4l9en.ondigitalocean.app/`;
   public chartData: any = null;
   private observable: any = null;
 
