@@ -5,7 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class DataService {
-  apiUrl:string = `http://localhost:3000`;
+  //apiUrl:string = `http://localhost:3000`;
+  apiUrl:string = `http://149.28.231.88:3000`;
   public chartData: any = null;
   private observable: any = null;
 
