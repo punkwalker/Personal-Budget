@@ -1,10 +1,4 @@
-
-<div *ngIf="auth.isAuthenticated$ | async else login">
-  <button [cdkMenuTriggerFor]="menu" class="dropdown-standalone-trigger">Sign Out</button>
-</div>
-<ng-template #login>
-  <button [cdkMenuTriggerFor]="menu" class="dropdown-standalone-trigger">Sign In</button>
-</ng-template>
+<button [cdkMenuTriggerFor]="menu" class="dropdown-standalone-trigger">Account</button>
 
 <ng-template #menu>
   <div class="dropdown-menu" cdkMenu>
