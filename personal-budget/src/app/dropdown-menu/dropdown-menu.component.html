@@ -3,7 +3,7 @@
   <button [cdkMenuTriggerFor]="menu" class="dropdown-standalone-trigger">Sign Out</button>
 </div>
 <ng-template #login>
-      <button class="dropdown-menu-item" cdkMenuItem (click)="login()">Sign In</button>
+  <button [cdkMenuTriggerFor]="menu" class="dropdown-standalone-trigger">Sign In</button>
 </ng-template>
 
 <ng-template #menu>
