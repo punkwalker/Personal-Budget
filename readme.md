@@ -6,6 +6,10 @@ Application URL - https://magenta-dodol-0b76a5.netlify.app/ <br />
 2. API hosting using Digital Ocean - https://www.digitalocean.com <br />
 3. MongoDB hosting on MongoDB Atlas Cloud - https://cloud.mongodb.com/
 
+Tests are located at -
+1. E2E test: server/cypress/e2e
+2. Visual regression and unit test: server/tests
+
 # System details
 Angular CLI: 16.2.3
 Node: 18.16.0
