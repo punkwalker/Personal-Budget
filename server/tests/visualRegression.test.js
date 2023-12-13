@@ -27,7 +27,8 @@ describe('Personal Budget Tracker', () => {
     const USE_EXECUTION_CLOUD = false;
     
     // Test control inputs to read once and share for all tests
-    var applitoolsApiKey = process.env.APPLITOOLS_API_KEY;
+    //var applitoolsApiKey = process.env.APPLITOOLS_API_KEY;
+    applitoolsApiKey = '97BtB4jk2l106ScDO7UBFRHjEayfPPYjVBOcXrr81Ou7OE110';
     var headless;
 
     // Applitools objects to share for all tests
@@ -149,13 +150,38 @@ describe('Personal Budget Tracker', () => {
         );
     });
   
-  it('Should navigate to homepage', () => {
+  it('Should login and show the dashboard for the user', async () => {
     // Visit the homepage
-    cy.visit('http://localhost:4200');
-    cy.get('.hero').should('contain', 'Personal Budget Tracker');
-    cy.get('.menu').should('contain', 'Home');
-    cy.get('.menu').should('contain', 'Account');
+    await driver.get('http://localhost:4200');
+
+    await eyes.check(Target.window().fully().withName("PersonalBudget"));
+    await driver.findElement(By.css(".dropdown-standalone-trigger")).click();
+    await driver.findElement(By.css(".dropdown-menu-item")).click();
+    await driver.findElement(By.id("username")).sendKeys("a@b.com");
+    await driver.findElement(By.id("password")).sendKeys("Abcde@1234");
+    await driver.findElement(By.css(".cc78b8bf3")).click();
   });
+    afterEach(async function() {
+
+        // Close Eyes to tell the server it should display the results.
+        await eyes.closeAsync();
+
+        // Quit the WebDriver instance.
+        await driver.quit();
+
+        // Warning: `eyes.closeAsync()` will NOT wait for visual checkpoints to complete.
+        // You will need to check the Eyes Test Manager for visual results per checkpoint.
+        // Note that "unresolved" and "failed" visual checkpoints will not cause the Mocha test to fail.
+
+        // If you want the ACME demo app test to wait synchronously for all checkpoints to complete, then use `eyes.close()`.
+        // If any checkpoints are unresolved or failed, then `eyes.close()` will make the ACME demo app test fail.
+
+    });
+
+    after(async () => {
+        // Close the batch and report visual differences to the console.
+        // Note that it forces Mocha to wait synchronously for all visual checkpoints to complete.
+        const allTestResults = await runner.getAllTestResults();
+        console.log(allTestResults);
+    });
 });
-
-
