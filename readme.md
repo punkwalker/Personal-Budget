@@ -1,7 +1,18 @@
 # Pesonal Budget Tracker
-A user-friendly budget tracker for you!
+A user-friendly budget tracker application built with MEAN stack leveraging serverless architecture.
+Application URL - https://magenta-dodol-0b76a5.netlify.app/ <br />
 
-## Test logins (Username/PW)
+1. Front-end hosting using Netlify - https://app.netlify.com/ <br />
+2. API hosting using Digital Ocean - https://www.digitalocean.com <br />
+3. MongoDB hosting on MongoDB Atlas Cloud - https://cloud.mongodb.com/
+
+# System details
+Angular CLI: 16.2.3
+Node: 18.16.0
+Package Manager: npm 9.7.1
+Angular: 16.2.6
+
+# Test logins (Username/PW)
 1. a@b.com/Abcde@1234
 
 
